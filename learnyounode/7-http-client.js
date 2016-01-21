@@ -1,7 +1,16 @@
 var http = require('http');
 
-http.get('http://www.google.com', function callback (response) {
-    response.on('data', function (data) {
+http.get(process.argv[2], function (res) {
+    res.setEncoding('utf8');
+    res.on('data', console.log);
+    res.on('error', console.error);
+})
+
+/*
+http.get(process.argv[2], function (res) {
+    res.setEncoding('utf8');
+    res.on('data', function (data) {
         console.log(data);
     })
 })
+*/
