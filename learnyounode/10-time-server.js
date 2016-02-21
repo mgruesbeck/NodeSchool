@@ -1,15 +1,19 @@
-var net = require('net');
+var net = require('net')
 
-var currentDate = new Date();
-var year = currentDate.getFullYear();
-var month = ('0' + currentDate.getMonth()).slice(-2);
-var day = ('0' + currentDate.getDay()).slice(-2);
-var hour = ('0' + currentDate.getHours()).slice(-2);
-var min = ('0' + currentDate.getMinutes()).slice(-2);
+function zeroFill(i) {
+    return (i < 10 ? '0' : '') + i
+}
+
+function now () {
+    var d = new Date()
+        return d.getFullYear() + '-'
+        + zeroFill(d.getMonth() + 1) + '-'
+        + zeroFill(d.getDate()) + ' '
+        + zeroFill(d.getHours()) + ':'
+        + zeroFill(d.getMinutes())
+}
 
 var server = net.createServer(function (socket) {
-    var formattedDate = year + '-' + month + '-' + day + ' ' + hour + ':' + min + '\n';
-    socket.write(formattedDate)
-    socket.end()
+    socket.end(now() + '\n')
 })
-server.listen(process.argv[2]);
+server.listen(Number(process.argv[2]));
