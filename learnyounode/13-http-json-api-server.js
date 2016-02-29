@@ -1,22 +1,28 @@
-/*
-   1. servers json when '/api/parsetime' path receives get request
-   2. request has string with 'iso' key /api/parsetime?iso=2013-08-10T12:10:15.474Z
-   3. json response should only have hour, minute, second
-   4. add '/api/unixtime' which is same as #3 + milliseconds
-   5. server to listen on first argument
-*/
+http = require('http');
 
-var http = require('http');
-var url = require('url');
-
-var currentDate = new Date();
-
-server = http.createServer(function (req, res) {
+http.createServer(function (req, res) {
+    var url = require('url');
+    var query = url.parse(req.url, true);
+    var path = query['pathname'].split('/');
+    var date = new Date(query.query.iso);
     res.writeHead(200, { 'Content-Type': 'application/json' });
-    // include time contents 
-    // set url endpoint
-    // JSON stringify
-    res.end('done');
-});
-server.listen(process.argv[2]);
-console.log(currentDate);
+    if(path[2] == 'parsetime') {
+        var parsetime = { 
+            hour: date.getHours(),
+            minute: date.getMinutes(),
+            second: date.getSeconds()
+        };
+        res.write(JSON.stringify(parsetime));
+        res.end();
+    } 
+    else if(path[2] == 'unixtime') {  
+        var unixtime = { 
+            unixtime: date.getTime() 
+        };    
+        res.write(JSON.stringify(unixtime));
+        res.end();
+    } 
+    else {
+        res.end("error");
+    }
+}).listen(process.argv[2]);
