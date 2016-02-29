@@ -1,0 +1,12 @@
+{
+  "name": "first-npm",
+  "version": "1.0.2",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "author": "Melvin Gruesbeck",
+  "license": "ISC",
+  "repository" : "https://www.npmjs.com/package/first-npm"
+}
