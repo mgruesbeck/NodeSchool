@@ -1,0 +1,7 @@
+@mixin border-width($color) {
+    border-width: $color;
+}
+
+img {
+    @include border-width(10px);
+}

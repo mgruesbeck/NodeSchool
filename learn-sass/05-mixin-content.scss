@@ -1,0 +1,9 @@
+@mixin border-width($color) {
+    border-width: $color;
+    @content;
+}
+
+img {
+    @include border-width(10px);
+    border-style: solid;
+}
